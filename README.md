@@ -1,1 +1,135 @@
 # Aquascan
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AquaScan - Microplastic Detection</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #e0f7fa;
+    }
+    header, footer {
+      background-color: #00796b;
+      color: white;
+      text-align: center;
+      padding: 1em;
+    }
+    nav a {
+      margin: 0 15px;
+      color: white;
+      text-decoration: none;
+    }
+    main {
+      padding: 2em;
+    }
+    section {
+      margin-bottom: 2em;
+      background: white;
+      padding: 1em;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+      border-collapse: collapse;
+      padding: 0.5em;
+    }
+    input[type="text"], input[type="file"] {
+      margin-top: 0.5em;
+      display: block;
+      width: 100%;
+      padding: 0.5em;
+    }
+    button {
+      margin-top: 1em;
+      background-color: #00796b;
+      color: white;
+      padding: 0.5em 1em;
+      border: none;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AquaScan</h1>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#upload">Upload</a>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#about">About</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home">
+      <h2>Welcome to AquaScan</h2>
+      <p>AquaScan is a student-built web project to help visualize microplastic pollution in water bodies. Users can upload water sample images and record sample details. This app helps raise awareness about microplastic contamination.</p>
+    </section>
+
+    <section id="upload">
+      <h2>Upload Water Sample</h2>
+      <form id="uploadForm">
+        <label for="location">Sample Location:</label>
+        <input type="text" id="location" required />
+
+        <label for="sampleImage">Upload Image:</label>
+        <input type="file" id="sampleImage" accept="image/*" required />
+
+        <button type="submit">Submit Sample</button>
+      </form>
+    </section>
+
+    <section id="dashboard">
+      <h2>Dashboard</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Location</th>
+            <th>Image</th>
+            <th>Timestamp</th>
+          </tr>
+        </thead>
+        <tbody id="sampleTable"></tbody>
+      </table>
+    </section>
+
+    <section id="about">
+      <h2>About Microplastics</h2>
+      <p>Microplastics are tiny plastic particles that pollute aquatic ecosystems. They come from plastic waste, synthetic clothing, and industrial processes. This project aims to spread awareness and support environmental research efforts.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 AquaScan Project | Built by First-Year IDT Students</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById('uploadForm');
+    const table = document.getElementById('sampleTable');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const location = document.getElementById('location').value;
+      const image = document.getElementById('sampleImage').files[0];
+
+      if (location && image) {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${location}</td>
+          <td><img src="${URL.createObjectURL(image)}" alt="Sample Image" height="60"></td>
+          <td>${new Date().toLocaleString()}</td>
+        `;
+        table.appendChild(row);
+
+        // Reset form
+        form.reset();
+      }
+    });
+  </script>
+</body>
+</html>
